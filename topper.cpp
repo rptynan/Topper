@@ -22,7 +22,7 @@ int main(int argc, char *argv[]){
 	Polyhedron model;
 	modelin>>model;
 
-	double bbox[2][3]; //bbox[min,max][x,y,z]
+	double bbox[2][3];	//bbox[min,max][x,y,z]
 	for( Vertex_iterator v = model.vertices_begin(); v != model.vertices_end(); ++v ){
 		if( v->point().x() < bbox[0][0] ) bbox[0][0] = v->point().x();
 		if( v->point().y() < bbox[0][1] ) bbox[0][1] = v->point().y();
@@ -33,14 +33,9 @@ int main(int argc, char *argv[]){
 	}
 	
 	CGAL::Geomview_stream gview(CGAL::Bbox_3(bbox[0][0],bbox[0][1],bbox[0][2],bbox[1][0],bbox[1][1],bbox[1][2]));
-	gview.set_line_width(4);
-	gview.set_trace(true);
 	gview.set_bg_color(CGAL::Color(0, 200, 200));
 	//gview.clear();
-	
-	gview.set_wired(true);
-	gview<<CGAL::RED;
-	gview<<model;
+	gview<<CGAL::VIOLET<<model;
 
 	std::getchar();
 	return 0;
