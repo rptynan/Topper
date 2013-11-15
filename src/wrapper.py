@@ -11,14 +11,18 @@ def is_num(inp):
 
 
 
-for i in range(len(sys.argv))[1:1]:
+i = 1
+while i < len(sys.argv):
 	
+	print var
+
 	t = []
 	t.append(sys.argv[i])
 	i+=1
 
 	if not is_num(sys.argv[i]):
 		t.append(sys.argv[i])
+		i+=1
 		var.append(t)
 		continue
 
