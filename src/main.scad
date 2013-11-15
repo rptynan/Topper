@@ -1,3 +1,5 @@
+bbox = [[0,0,0],[1,1,1]];
+modelpath = "../models/sphere.off";
 
 module infill(type){
 	if(type==1){
@@ -9,10 +11,7 @@ module infill(type){
 }
 
 module model(){
-	union(){
-		sphere(5);
-		translate([0,2,3]) sphere(6);
-	};
+	import(modelpath);
 }
 
 
