@@ -1,6 +1,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "VariableWrapper.h"
+
 #include <CGAL/Simple_cartesian.h>
 #include <CGAL/Polyhedron_3.h>
 #include <CGAL/IO/Geomview_stream.h>
@@ -21,6 +23,12 @@ int main(int argc, char *argv[]){
 	std::ifstream modelin(argv[1]);
 	Polyhedron model;
 	modelin>>model;
+	
+	if( argc<3 ){
+		std::cout<<"Infill not specified"<<'\n';
+		return 0;
+	}
+	int infillmode = atoi(argv[2]);
 
 	double bbox[2][3];	//bbox[min,max][x,y,z]
 	for( Vertex_iterator v = model.vertices_begin(); v != model.vertices_end(); ++v ){
@@ -36,6 +44,8 @@ int main(int argc, char *argv[]){
 	gview.set_bg_color(CGAL::Color(0, 200, 200));
 	//gview.clear();
 	gview<<CGAL::VIOLET<<model;
+
+	VariableWrapper::Write_to_openscad(std::string(argv[0]),bbox,argv[1],infillmode);
 
 	std::getchar();
 	return 0;

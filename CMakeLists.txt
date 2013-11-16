@@ -34,3 +34,5 @@ endif()
 
 
 file(COPY ${CMAKE_SOURCE_DIR}/src/wrapper.py DESTINATION .)
+file(COPY ${CMAKE_SOURCE_DIR}/src/variables.scad DESTINATION .)
+file(COPY ${CMAKE_SOURCE_DIR}/src/main.scad DESTINATION .)

@@ -1,5 +1,5 @@
-bbox = [[0,0,0],[1,1,1]];
-modelpath = "../models/sphere.off";
+use <variables.scad>;
+
 
 module infill(type){
 	if(type==1){
