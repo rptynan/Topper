@@ -13,6 +13,9 @@ namespace VariableWrapper
 		snprintf(buffer,BUFSIZE,"bbox = [[%f,%f,%f],[%f,%f,%f]];",bbox[0][0], bbox[0][1], bbox[0][2], bbox[1][0], bbox[1][1], bbox[1][2]);
 		varout<<buffer<<std::endl;
 
+		snprintf(buffer,BUFSIZE,"model_size = [%f,%f,%f];", bbox[1][0]-bbox[0][0],bbox[1][1]-bbox[0][1],bbox[1][2]-bbox[0][2]);
+		varout<<buffer<<std::endl;
+
 		snprintf(buffer,BUFSIZE,"model_path = \"%s\";", modelpath);
 		varout<<buffer<<std::endl;
 		
