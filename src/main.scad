@@ -8,24 +8,21 @@ module Model(){
 	import(model_path);
 }
 
-module Section_View(){
+module Section_View(plane){
 	difference(){
 		children(0);
-		translate([bbox[0][0]-2+(model_size[0]/2),
-				bbox[0][1]-model_size[1]/2,
-				bbox[0][2]-model_size[1]/2]) 
-			scale(eps_scale) 
-			cube([model_size[0],model_size[1],model_size[2]]); }
+		rotate(plane*90) 
+			translate([bbox[0][0]+(model_size[0]/2),
+			bbox[0][1]-model_size[1]/2,
+			bbox[0][2]-model_size[2]/2]) 
+			cube([model_size[0],model_size[1],model_size[2]]*eps_scale); 
+	}
 }
 
 module Shell(){
-	difference(){
-		children(0);
-		//#resize([model_size[0]-2*shell_width, model_size[1]-2*shell_width, model_size[2]-2*shell_width])
-		#scale(0.8)
-		//translate([0.5,0.5,0.5]*shell_width)
-		Model();
-	}
+	
+	//cube([model_size[0],model_size[1],model_size[2]]]*epscale);
+	
 }
 
 module Infill(){
@@ -50,4 +47,5 @@ module Trim(){
 
 //Trim() Infill() 
 //Section_View() Shell() Model();  
-Section_View() Shell() Model();
+//Section_View() Shell() Model();
+Section_View([0,0,0]) Model();
