@@ -11,17 +11,19 @@ module Model(){
 module Section_View(plane){
 	difference(){
 		children(0);
-		rotate(plane*90) 
-			translate([bbox[0][0]+(model_size[0]/2),
-			bbox[0][1]-model_size[1]/2,
-			bbox[0][2]-model_size[2]/2]) 
-			cube([model_size[0],model_size[1],model_size[2]]*eps_scale); 
+		translate([plane[0]*model_size[0],
+			plane[1]*model_size[1],
+			plane[2]*model_size[2]])
+			cube([model_size[0],model_size[1],model_size[2]]*eps_scale,center=true); 
 	}
 }
 
 module Shell(){
 	
-	//cube([model_size[0],model_size[1],model_size[2]]]*epscale);
+	difference(){
+		cube([model_size[0],model_size[1],model_size[2]]*epscale);
+		Model();
+	}
 	
 }
 
@@ -48,4 +50,5 @@ module Trim(){
 //Trim() Infill() 
 //Section_View() Shell() Model();  
 //Section_View() Shell() Model();
-Section_View([0,0,0]) Model();
+//Section_View([1.2,0,0]) Model();
+//Shell();
