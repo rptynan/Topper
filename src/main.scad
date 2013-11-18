@@ -11,14 +11,20 @@ module Model(){
 module Section_View(){
 	difference(){
 		children(0);
-		translate([bbox[0][0]+(model_size[0]/2),-eps,-eps]) scale(eps_scale) cube([model_size[0],model_size[1],model_size[2]]);
-	}
+		translate([bbox[0][0]-2+(model_size[0]/2),
+				bbox[0][1]-model_size[1]/2,
+				bbox[0][2]-model_size[1]/2]) 
+			scale(eps_scale) 
+			cube([model_size[0],model_size[1],model_size[2]]); }
 }
 
 module Shell(){
 	difference(){
 		children(0);
-		translate([shell_width,shell_width,shell_width]) resize([model_size[0]-(2*shell_width),model_size[1]-(2*shell_width),model_size[2]-(2*shell_width)]) Model();
+		//#resize([model_size[0]-2*shell_width, model_size[1]-2*shell_width, model_size[2]-2*shell_width])
+		#scale(0.8)
+		//translate([0.5,0.5,0.5]*shell_width)
+		Model();
 	}
 }
 
@@ -42,4 +48,6 @@ module Trim(){
 	}
 }
 
-Trim() Infill() Shell() Model();  
+//Trim() Infill() 
+//Section_View() Shell() Model();  
+Section_View() Shell() Model();
