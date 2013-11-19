@@ -21,8 +21,18 @@ module Section_View(plane){
 module Shell(){
 	
 	difference(){
-		cube([model_size[0],model_size[1],model_size[2]]*epscale);
 		Model();
+		difference(){
+			Model();
+			minkowski(){
+				difference(){
+					cube([model_size[0],model_size[1],model_size[2]]*eps_scale*eps_scale,center=true);
+					Model();
+				}
+				cube(2*shell_width,center=true);
+				//sphere(shell_width,$fn=6);
+			}
+		}
 	}
 	
 }
@@ -47,8 +57,5 @@ module Trim(){
 	}
 }
 
-//Trim() Infill() 
-//Section_View() Shell() Model();  
-//Section_View() Shell() Model();
-//Section_View([1.2,0,0]) Model();
-//Shell();
+Section_View([1,0,0]) Shell() Model();
+//cube(shell_width);
