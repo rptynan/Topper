@@ -8,13 +8,15 @@ module Model(){
 	import(model_path);
 }
 
+module Universe(uscale){
+		translate(bbox[0]+model_size/2) cube(model_size*eps_scale*uscale,center=true);
+}
+
 module Section_View(plane){
 	difference(){
 		children(0);
-		translate([plane[0]*model_size[0],
-			plane[1]*model_size[1],
-			plane[2]*model_size[2]])
-			cube([model_size[0],model_size[1],model_size[2]]*eps_scale,center=true); 
+		translate([plane[0]*model_size[0], plane[1]*model_size[1], plane[2]*model_size[2]])
+		Universe(1);
 	}
 }
 
@@ -26,7 +28,7 @@ module Shell(){
 			Model();
 			minkowski(){
 				difference(){
-					cube([model_size[0],model_size[1],model_size[2]]*eps_scale*eps_scale,center=true);
+					Universe(2);
 					Model();
 				}
 				cube(2*shell_width,center=true);
@@ -42,7 +44,7 @@ module Infill(){
 	if(infill_mode==0){
 		union(){
 			children(0);
-			rotate([0,30,0]) translate([10,10,0]) cube([2,2,60]);
+			rotate([45,0,0]) translate([0,0,bbox[0][2]]*2) cube([2,2,model_size[2]*2]);
 		}
 	}
 }
@@ -51,11 +53,11 @@ module Trim(){
 	difference(){
 		children(0);
 		difference(){
-			translate([bbox[0][0]-model_size[0],bbox[0][1]-model_size[1],bbox[0][2]-model_size[2]]/2) scale(eps_scale) Model();
+			Universe(3);
 			Model();
 		}
 	}
 }
 
-Section_View([1,0,0]) Shell() Model();
+Section_View([1,0,0]) Trim() Infill() Shell() Model();
 //cube(shell_width);
