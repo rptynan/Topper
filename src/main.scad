@@ -1,8 +1,10 @@
 include <variables.scad>;
+include <infills/spherepack.scad>;
 
 shell_width = 1.5;
 eps_scale = 2;
 eps = .00001;
+I1_radius=20;
 
 module Model(){
 	import(model_path);
@@ -47,6 +49,14 @@ module Infill(){
 			rotate([45,0,0]) translate([0,0,bbox[0][2]]*2) cube([2,2,model_size[2]*2]);
 		}
 	}
+	//Sphere Pack
+	if(infill_mode==1){
+		Trim()
+			union(){
+				children(0);
+				Infill_spherepack(I1_radius);
+			}
+	}
 }
 
 module Trim(){
@@ -59,5 +69,4 @@ module Trim(){
 	}
 }
 
-Section_View([1,0,0]) Trim() Infill() Shell() Model();
-//cube(shell_width);
+Section_View([1,0,0]) Infill() Shell() Model();
