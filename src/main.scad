@@ -1,6 +1,7 @@
 include <variables.scad>;
 include <infills/spherepack.scad>;
 
+$fn=6;
 shell_width = 1.5;
 eps_scale = 2;
 eps = .00001;
@@ -23,7 +24,6 @@ module Section_View(plane){
 }
 
 module Shell(){
-	
 	difference(){
 		Model();
 		difference(){
@@ -38,24 +38,16 @@ module Shell(){
 			}
 		}
 	}
-	
 }
 
 module Infill(){
 	//Test Infill
 	if(infill_mode==0){
-		union(){
-			children(0);
-			rotate([45,0,0]) translate([0,0,bbox[0][2]]*2) cube([2,2,model_size[2]*2]);
-		}
+			Trim() rotate([45,0,0]) translate([0,0,bbox[0][2]]*2) cube([2,2,model_size[2]*2]);
 	}
 	//Sphere Pack
 	if(infill_mode==1){
-		Trim()
-			union(){
-				children(0);
-				Infill_spherepack(I1_radius);
-			}
+		Trim() Infill_spherepack(I1_radius);
 	}
 }
 
@@ -69,4 +61,7 @@ module Trim(){
 	}
 }
 
-Section_View([1,0,0]) Infill() Shell() Model();
+Infill();
+Section_View([1,0,0]) Shell() Model();
+//Shell() Model();
+
