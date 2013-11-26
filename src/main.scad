@@ -5,7 +5,7 @@ $fn=6;
 shell_width = 1.5;
 eps_scale = 2;
 eps = .00001;
-I1_radius=20;
+I1_radius=7;
 
 module Model(){
 	import(model_path);
@@ -40,6 +40,13 @@ module Shell(){
 	}
 }
 
+module Normal_Fix(){
+	difference(){
+		children(0);
+		translate(bbox[1]/2) cube([eps,eps,model_size[2]*eps_scale],center=true);
+	}
+}
+
 module Infill(){
 	//Test Infill
 	if(infill_mode==0){
@@ -61,7 +68,11 @@ module Trim(){
 	}
 }
 
+//Section_View([1,0,0]) Shell() Model();
+Normal_Fix()
+union(){
 Infill();
-Section_View([1,0,0]) Shell() Model();
-//Shell() Model();
+//Section_View([1,0,0]) Shell() Model();
+Shell() Model();
+};
 

@@ -1,0 +1,5 @@
+To Do:
+
+Fix the sphere pack so that the spheres definitely intersect when $fn is low (step variable)
+
+Move the variables at top of main.scad to variables.scad
