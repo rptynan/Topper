@@ -1,11 +1,14 @@
 include <variables.scad>;
 include <infills/spherepack.scad>;
+include <infills/octtess.scad>;
 
 $fn=6;
 shell_width = 1.5;
+nozzle_width = 0.5;
 eps_scale = 2;
 eps = .00001;
 I1_radius=7;
+I2_side=15;
 
 module Model(){
 	import(model_path);
@@ -47,17 +50,6 @@ module Normal_Fix(){
 	}
 }
 
-module Infill(){
-	//Test Infill
-	if(infill_mode==0){
-			Trim() rotate([45,0,0]) translate([0,0,bbox[0][2]]*2) cube([2,2,model_size[2]*2]);
-	}
-	//Sphere Pack
-	if(infill_mode==1){
-		Trim() Infill_spherepack(I1_radius);
-	}
-}
-
 module Trim(){
 	difference(){
 		children(0);
@@ -68,11 +60,29 @@ module Trim(){
 	}
 }
 
-//Section_View([1,0,0]) Shell() Model();
+module Infill(){
+	//Test Infill
+	if(infill_mode==0){
+			Trim() rotate([45,0,0]) translate([0,0,bbox[0][2]]*2) cube([2,2,model_size[2]*2]);
+	}
+	//Sphere Pack
+	if(infill_mode==1){
+		Trim() Infill_spherepack(I1_radius);
+	}
+	//Truncated Octohedron Pack
+	if(infill_mode==2){
+		Trim() Infill_octtess(I2_side);
+	}
+
+}
+
+
+
+
+Section_View([1,0,0]) 
 Normal_Fix()
 union(){
-Infill();
-//Section_View([1,0,0]) Shell() Model();
-Shell() Model();
+	Infill();
+	Shell() Model();
 };
 
