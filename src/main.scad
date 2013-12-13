@@ -1,6 +1,7 @@
 include <variables.scad>;
 include <infills/spherepack.scad>;
 include <infills/octtess.scad>;
+include <infills/rhomtess.scad>;
 
 $fn=6;
 shell_width = 1.5;
@@ -9,6 +10,7 @@ eps_scale = 2;
 eps = .00001;
 I1_radius=7;
 I2_side=15;
+I3_height=10;
 
 module Model(){
 	import(model_path);
@@ -73,6 +75,10 @@ module Infill(){
 	if(infill_mode==2){
 		Trim() Infill_octtess(I2_side);
 	}
+	//Rhombic Dodecahedron Pack
+	if(infill_mode==3){
+		Trim() Infill_rhomtess(I3_height);
+	}
 
 }
 
@@ -80,7 +86,7 @@ module Infill(){
 
 
 Section_View([1,0,0]) 
-Normal_Fix()
+//Normal_Fix()
 union(){
 	Infill();
 	Shell() Model();
