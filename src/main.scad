@@ -5,10 +5,11 @@ include <infills/rhomtess.scad>;
 
 $fn=6;
 shell_width = 1.5;
-nozzle_width = 0.5;
+nozzle_width = 0.4;
+infill_width = 0.1;
 eps_scale = 2;
 eps = .00001;
-I1_radius=7;
+I1_radius=10;
 I2_side=15;
 I3_height=10;
 
@@ -85,10 +86,9 @@ module Infill(){
 
 
 
-Section_View([1,0,0]) 
+//Section_View([1,0,0]) 
 //Normal_Fix()
 union(){
-	Infill();
-	Shell() Model();
+	color("Turquoise",0.8) Infill();
+	color("Orange",0.5) Shell() Model();
 };
-
