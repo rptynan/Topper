@@ -4,9 +4,9 @@ include <infills/octtess.scad>;
 include <infills/rhomtess.scad>;
 
 $fn=6;
-shell_width = 1.5;
+shell_width = 0.41;
 nozzle_width = 0.4;
-infill_width = 0.1;
+infill_width = 0.61;
 eps_scale = 2;
 eps = .00001;
 I1_radius=10;
@@ -74,7 +74,10 @@ module Infill(){
 	}
 	//Truncated Octohedron Pack
 	if(infill_mode==2){
-		Trim() Infill_octtess(I2_side);
+		difference(){
+			Model();
+			Trim() Infill_octtess(I2_side);
+		}
 	}
 	//Rhombic Dodecahedron Pack
 	if(infill_mode==3){
