@@ -29,6 +29,7 @@ module Section_View(plane){
 	}
 }
 
+//Hollows the model to make the shell
 module Shell(){
 	difference(){
 		Model();
@@ -39,20 +40,15 @@ module Shell(){
 					Universe(2);
 					Model();
 				}
+				//Using the sphere is more computationally intensive
 				cube(2*shell_width,center=true);
 				//sphere(shell_width,$fn=6);
 			}
 		}
 	}
 }
-
-module Normal_Fix(){
-	difference(){
-		children(0);
-		translate(bbox[1]/2) cube([eps,eps,model_size[2]*eps_scale],center=true);
-	}
-}
-
+  
+//Trims off any infill outside the model
 module Trim(){
 	difference(){
 		children(0);
@@ -81,7 +77,10 @@ module Infill(){
 	}
 	//Rhombic Dodecahedron Pack
 	if(infill_mode==3){
-		Trim() Infill_rhomtess(I3_height);
+		difference(){
+			Model();
+			Trim() Infill_rhomtess(I3_height);
+		}
 	}
 
 }
@@ -90,8 +89,7 @@ module Infill(){
 
 
 //Section_View([1,0,0]) 
-//Normal_Fix()
 union(){
-	color("Turquoise",0.8) Infill();
+	color("Turquoise",0.5) Infill();
 	color("Orange",0.5) Shell() Model();
 };
