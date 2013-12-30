@@ -1,8 +1,7 @@
 #include <iostream>
+#include <vector>
 #include <fstream>
 #include <cstring>
-
-#include "VariableWrapper.h"
 
 #include <CGAL/Simple_cartesian.h>
 #include <CGAL/Polyhedron_3.h>
@@ -12,7 +11,9 @@
 
 typedef CGAL::Simple_cartesian<double> Kernel;
 typedef CGAL::Polyhedron_3<Kernel> Polyhedron;
-typedef	Polyhedron::Vertex_iterator Vertex_iterator;
+typedef Polyhedron::Vertex_iterator Vertex_iterator;
+
+#include "VariableWrapper.h"
 
 
 int main(int argc, char *argv[]){
@@ -69,7 +70,7 @@ int main(int argc, char *argv[]){
 
 
 //Transfer to OpenSCAD
-	VariableWrapper::Write_to_openscad(abspathexec,bbox,abspathmodel,infillmode);
+        VariableWrapper::Write_to_openscad(abspathexec,bbox,abspathmodel,infillmode,model);
 
 
 //Pause at end

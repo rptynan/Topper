@@ -1,9 +1,9 @@
-#define BUFSIZE 1024
+#define BUFSIZE 10240
 
 namespace VariableWrapper
 {
 
-	void Write_to_openscad(char path[],double bbox[2][3], char modelpath[], int infillmode){
+	void Write_to_openscad(char path[],double bbox[2][3], char modelpath[], int infillmode, Polyhedron model){
 
 		strcat(path,"variables.scad");
 		std::ofstream varout(path);
@@ -21,6 +21,15 @@ namespace VariableWrapper
 		
 		snprintf(buffer,BUFSIZE,"infill_mode = %d;", infillmode);
 		varout<<buffer<<std::endl;
+
+		std::string points = "model_points = [";
+		for( Vertex_iterator v = model.vertices_begin(); v != model.vertices_end(); ++v ){
+			snprintf(buffer,BUFSIZE,"[%f,%f,%f],",v->point().x(),v->point().y(),v->point().z());
+			points+=buffer;
+		}
+		points[points.length()-1]=']';
+		points+=";";
+		varout<<points<<std::endl;
 
 		return;
 	}

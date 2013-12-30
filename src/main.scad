@@ -6,7 +6,7 @@ include <infills/rhomtess.scad>;
 $fn=6;
 shell_width = 0.41;
 nozzle_width = 0.4;
-infill_width = 0.61;
+infill_width = 0.41;
 eps_scale = 2;
 eps = .00001;
 I1_radius=10;
