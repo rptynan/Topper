@@ -3,8 +3,10 @@
 namespace VariableWrapper
 {
 
-	void Write_to_openscad(char path[],double bbox[2][3], char modelpath[], int infillmode, Polyhedron model){
+	void Write_to_openscad(char tpath[],double bbox[2][3], char modelpath[], int infillmode, Polyhedron model, std::vector<Point> i4points){
 
+		char path[BUFSIZE];
+		strcpy(path,tpath);
 		strcat(path,"variables.scad");
 		std::ofstream varout(path);
 		std::cout<<"Absolute path to variables.scad: "<<path<<std::endl;
@@ -23,8 +25,17 @@ namespace VariableWrapper
 		varout<<buffer<<std::endl;
 
 		std::string points = "model_points = [";
-		for( Vertex_iterator v = model.vertices_begin(); v != model.vertices_end(); ++v ){
-			snprintf(buffer,BUFSIZE,"[%f,%f,%f],",v->point().x(),v->point().y(),v->point().z());
+		for( Point_iterator p = model.points_begin(); p != model.points_end(); ++p ){
+			snprintf(buffer,BUFSIZE,"[%f,%f,%f],",p->x(),p->y(),p->z());
+			points+=buffer;
+		}
+		points[points.length()-1]=']';
+		points+=";";
+		varout<<points<<std::endl;
+
+		points = "i4_points = [";
+		for( std::vector<Point>::iterator p = i4points.begin(); p != i4points.end(); ++p){
+			snprintf(buffer,BUFSIZE,"[%f,%f,%f],",p->x(),p->y(),p->z());
 			points+=buffer;
 		}
 		points[points.length()-1]=']';
@@ -35,8 +46,10 @@ namespace VariableWrapper
 	}
 
 
-	int Fetch_I4_mindist(char path[]){
+	int Fetch_I4_mindist(char tpath[]){
 		
+		char path[BUFSIZE];
+		strcpy(path,tpath);
 		strcat(path,"configuration.scad");
 		std::ifstream configin(path);
 		std::cout<<"Absolute path to configuration.scad: "<<path<<std::endl;

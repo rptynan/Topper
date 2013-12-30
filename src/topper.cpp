@@ -11,8 +11,8 @@
 
 typedef CGAL::Simple_cartesian<double> Kernel;
 typedef CGAL::Polyhedron_3<Kernel> Polyhedron;
-typedef Polyhedron::Vertex_iterator Vertex_iterator;
 typedef Polyhedron::Point_iterator Point_iterator;
+typedef CGAL::Point_3<Kernel> Point;
 
 #include "VariableWrapper.h"
 
@@ -64,23 +64,32 @@ int main(int argc, char *argv[]){
 
 //Finding points not too near each other for dynkowski infill
 	int mindist = VariableWrapper::Fetch_I4_mindist(abspathexec);
-	std::vector<CGAL::Point_3<Kernel> > i4points;
+	bool baddist;
+	std::vector<Point> i4points;
 	std::vector<bool> visited(model.size_of_vertices());
-	i4points.push_back(model.vertices_begin()->point());
 	visited[0]=true;
-	for( Point_iterator p = model.points_begin(); p != model.points_end(); ++p ){
-		Point_iterator pv = model.points_begin();
-		for( int v = 0; v<visited.size(); ++v, ++pv){
-			if( visited[v] && CGAL::squared_distance( *pv, *p ) > mindist ){
-				i4points.push_back(*p);
-				visited[v]=true;
+	i4points.push_back(model.vertices_begin()->point());
+	
+	Point_iterator qp = model.points_begin();
+	for( int q =0 ; qp != model.points_end(); ++q, ++qp ){
+		
+		baddist=false;
+		Point_iterator vp = model.points_begin();
+		for( int v = 0; v<visited.size(); ++v, ++vp){
+			
+			if( visited[v] && CGAL::squared_distance( *vp, *qp )/100 < mindist ){
+				baddist=true;
 			}
 		}
+		if(!baddist){
+			i4points.push_back(*qp);
+			visited[q]=true;
+		}
+	
 	}
 
-
 //Transfer to OpenSCAD
-	VariableWrapper::Write_to_openscad(abspathexec,bbox,abspathmodel,infillmode,model);
+	VariableWrapper::Write_to_openscad(abspathexec,bbox,abspathmodel,infillmode,model,i4points);
 
 
 //Starting Geomview
