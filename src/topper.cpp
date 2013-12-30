@@ -62,16 +62,17 @@ int main(int argc, char *argv[]){
 	}
 
 
+//Transfer to OpenSCAD
+		VariableWrapper::Fetch_I4_mindist(abspathexec);
+        VariableWrapper::Write_to_openscad(abspathexec,bbox,abspathmodel,infillmode,model);
+
+
 //Starting Geomview
+	std::getchar();
 	CGAL::Geomview_stream gview(CGAL::Bbox_3(bbox[0][0],bbox[0][1],bbox[0][2],bbox[1][0],bbox[1][1],bbox[1][2]));
 	gview.set_bg_color(CGAL::Color(0, 200, 200));
 	//gview.clear();
 	gview<<CGAL::VIOLET<<model;
-
-
-//Transfer to OpenSCAD
-        VariableWrapper::Write_to_openscad(abspathexec,bbox,abspathmodel,infillmode,model);
-
 
 //Pause at end
 	std::getchar();

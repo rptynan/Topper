@@ -34,4 +34,22 @@ namespace VariableWrapper
 		return;
 	}
 
+
+	int Fetch_I4_mindist(char path[]){
+		
+		strcat(path,"configuration.scad");
+		std::ifstream configin(path);
+		std::cout<<"Absolute path to configuration.scad: "<<path<<std::endl;
+		std::string line;
+		while(1){
+			std::getline(configin,line);
+			if(line.find("I4_mindist") != std::string::npos){
+				std::cout<<"I4_mindist equals "<<line.substr( line.find("=")+1, line.length()-line.find("=")-2 )<<std::endl;
+				return atoi(line.substr( line.find("=")+1, line.length()-line.find("=")-2 ).c_str());
+			}
+		}
+		std::cout<<"Error: I4_mindist not found in configurationscad"<<std::endl;
+	
+	}
+
 }
