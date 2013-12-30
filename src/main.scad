@@ -15,10 +15,10 @@ module Universe(uscale){
 }
 
 module Section_View(plane){
-	difference(){
+	intersection(){
 		children(0);
-		translate([plane[0]*model_size[0], plane[1]*model_size[1], plane[2]*model_size[2]])
-		Universe(1);
+		translate([plane[0]*model_size[0], plane[1]*model_size[1], plane[2]*model_size[2]]*2)
+		Universe(2);
 	}
 }
 
@@ -83,8 +83,7 @@ module Infill(){
 
 
 
-
-Section_View([1,0,0]) 
+Section_View(section_view) 
 union(){
 	color("Turquoise",0.5) Infill();
 	color("Orange",0.5) Shell() Model();
