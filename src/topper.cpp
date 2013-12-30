@@ -12,6 +12,7 @@
 typedef CGAL::Simple_cartesian<double> Kernel;
 typedef CGAL::Polyhedron_3<Kernel> Polyhedron;
 typedef Polyhedron::Vertex_iterator Vertex_iterator;
+typedef Polyhedron::Point_iterator Point_iterator;
 
 #include "VariableWrapper.h"
 
@@ -52,19 +53,34 @@ int main(int argc, char *argv[]){
 	Polyhedron model;
 	modelin>>model;
 	double bbox[2][3];	//bbox[min,max][x,y,z]
-	for( Vertex_iterator v = model.vertices_begin(); v != model.vertices_end(); ++v ){
-		if( v->point().x() < bbox[0][0] ) bbox[0][0] = v->point().x();
-		if( v->point().y() < bbox[0][1] ) bbox[0][1] = v->point().y();
-		if( v->point().z() < bbox[0][2] ) bbox[0][2] = v->point().z();
-		if( v->point().x() > bbox[1][0] ) bbox[1][0] = v->point().x();
-		if( v->point().y() > bbox[1][1] ) bbox[1][1] = v->point().y();
-		if( v->point().z() > bbox[1][2] ) bbox[1][2] = v->point().z();
+	for( Point_iterator p = model.points_begin(); p != model.points_end(); ++p ){
+		if( p->x() < bbox[0][0] ) bbox[0][0] = p->x();
+		if( p->y() < bbox[0][1] ) bbox[0][1] = p->y();
+		if( p->z() < bbox[0][2] ) bbox[0][2] = p->z();
+		if( p->x() > bbox[1][0] ) bbox[1][0] = p->x();
+		if( p->y() > bbox[1][1] ) bbox[1][1] = p->y();
+		if( p->z() > bbox[1][2] ) bbox[1][2] = p->z();
+	}
+
+//Finding points not too near each other for dynkowski infill
+	int mindist = VariableWrapper::Fetch_I4_mindist(abspathexec);
+	std::vector<CGAL::Point_3<Kernel> > i4points;
+	std::vector<bool> visited(model.size_of_vertices());
+	i4points.push_back(model.vertices_begin()->point());
+	visited[0]=true;
+	for( Point_iterator p = model.points_begin(); p != model.points_end(); ++p ){
+		Point_iterator pv = model.points_begin();
+		for( int v = 0; v<visited.size(); ++v, ++pv){
+			if( visited[v] && CGAL::squared_distance( *pv, *p ) > mindist ){
+				i4points.push_back(*p);
+				visited[v]=true;
+			}
+		}
 	}
 
 
 //Transfer to OpenSCAD
-		VariableWrapper::Fetch_I4_mindist(abspathexec);
-        VariableWrapper::Write_to_openscad(abspathexec,bbox,abspathmodel,infillmode,model);
+	VariableWrapper::Write_to_openscad(abspathexec,bbox,abspathmodel,infillmode,model);
 
 
 //Starting Geomview
