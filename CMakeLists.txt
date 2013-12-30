@@ -35,4 +35,5 @@ endif()
 
 file(COPY ${CMAKE_SOURCE_DIR}/src/main.scad DESTINATION .)
 file(COPY ${CMAKE_SOURCE_DIR}/src/variables.scad DESTINATION .)
+file(COPY ${CMAKE_SOURCE_DIR}/src/configuration.scad DESTINATION .)
 file(COPY ${CMAKE_SOURCE_DIR}/src/infills/ DESTINATION ./infills)

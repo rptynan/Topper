@@ -33,7 +33,7 @@ namespace VariableWrapper
 		points+=";";
 		varout<<points<<std::endl;
 
-		points = "i4_points = [";
+		points = "I4_points = [";
 		for( std::vector<Point>::iterator p = i4points.begin(); p != i4points.end(); ++p){
 			snprintf(buffer,BUFSIZE,"[%f,%f,%f],",p->x(),p->y(),p->z());
 			points+=buffer;

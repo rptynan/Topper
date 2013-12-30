@@ -1,17 +1,10 @@
 include <variables.scad>;
+include <configuration.scad>;
 include <infills/spherepack.scad>;
 include <infills/octtess.scad>;
 include <infills/rhomtess.scad>;
+include <infills/dynkowski.scad>;
 
-$fn=6;
-shell_width = 0.41;
-nozzle_width = 0.4;
-infill_width = 0.41;
-eps_scale = 2;
-eps = .00001;
-I1_radius=10;
-I2_side=15;
-I3_height=10;
 
 module Model(){
 	import(model_path);
@@ -82,13 +75,16 @@ module Infill(){
 			Trim() Infill_rhomtess(I3_height);
 		}
 	}
-
+	//Dynamic Minkowski Support
+	if(infill_mode==4){
+		Trim() Infill_dynkowski(I4_size,I4_points);
+	}
 }
 
 
 
 
-//Section_View([1,0,0]) 
+Section_View([1,0,0]) 
 union(){
 	color("Turquoise",0.5) Infill();
 	color("Orange",0.5) Shell() Model();
