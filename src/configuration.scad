@@ -3,7 +3,7 @@ I4_mindist = 10;
 
 //Change these variables as you want, just render in openscad again (or rerun topper)
 $fn = 6;
-section_view = [1,0,0];
+section_view = [0,0,0];
 shell_width = 0.41;
 nozzle_width = 0.4;
 infill_width = 0.41;

@@ -24,31 +24,25 @@ module Section_View(plane){
 
 //Hollows the model to make the shell
 module Shell(){
-	difference(){
+	intersection(){
 		Model();
-		difference(){
-			Model();
-			minkowski(){
-				difference(){
-					Universe(2);
-					Model();
-				}
-				//Using the sphere is more computationally intensive
-				cube(2*shell_width,center=true);
-				//sphere(shell_width,$fn=6);
+		minkowski(){
+			difference(){
+				Universe(3);
+				Model();
 			}
+			//Using the sphere is more computationally intensive
+			cube(2*shell_width,center=true);
+			//sphere(shell_width,$fn=20);
 		}
 	}
 }
   
 //Trims off any infill outside the model
 module Trim(){
-	difference(){
+	intersection(){
 		children(0);
-		difference(){
-			Universe(3);
 			Model();
-		}
 	}
 }
 

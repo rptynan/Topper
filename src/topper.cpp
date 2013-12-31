@@ -22,30 +22,30 @@ int main(int argc, char *argv[]){
 
 //Input and path findings
 	//Start and checks
-	char abspathuser[BUFSIZE], abspathmodel[BUFSIZE], abspathexec[BUFSIZE];
-	if( argc<2 ){
-		std::cout<<"Model path not specified"<<'\n';
+	char abspathuser[BUFSIZE], abspathmodel[BUFSIZE], abspathexec[BUFSIZE], abspathoutput[BUFSIZE];
+	if( argc!=4 ){
+		std::cout<<"usage: topper [model] [infillnumber] [output]"<<'\n';
 		return 0;
 	}
 	//User's pwd
 	realpath(".",abspathuser);
 	strcat(abspathuser,"/");
 	std::cout<<"Absolute path to user's directory: "<<abspathuser<<std::endl;
-	//Model's path
-	strcpy(abspathmodel,abspathuser);
-	strcat(abspathmodel,argv[1]);
-	std::cout<<"Absolute path to model: "<<abspathmodel<<std::endl;
 	//Executable's path
 	strcpy(abspathexec,abspathuser);
 	strcat(abspathexec,argv[0]);
 	abspathexec[strlen(abspathexec)-6]='\0';
 	std::cout<<"Absolute path to executable's directory: "<<abspathexec<<std::endl;
-	//More checks
-	if( argc<3 ){
-		std::cout<<"Infill not specified"<<'\n';
-		return 0;
-	}
+	//Model's path
+	if(argv[3][0]!='/' && argv[3][0]!='\\') strcpy(abspathmodel,abspathuser);
+	strcat(abspathmodel,argv[1]);
+	std::cout<<"Absolute path to model: "<<abspathmodel<<std::endl;
+	//Infill
 	int infillmode = atoi(argv[2]);
+	//Output path
+	if(argv[3][0]!='/' && argv[3][0]!='\\') strcpy(abspathoutput,abspathuser);
+	strcat(abspathoutput,argv[3]);
+	std::cout<<"Absolute path to output: "<<abspathoutput<<std::endl;
 
 
 //Loading model into CGAL
@@ -93,14 +93,21 @@ int main(int argc, char *argv[]){
 
 
 //Starting Geomview
-	std::getchar();
-	CGAL::Geomview_stream gview(CGAL::Bbox_3(bbox[0][0],bbox[0][1],bbox[0][2],bbox[1][0],bbox[1][1],bbox[1][2]));
-	gview.set_bg_color(CGAL::Color(0, 200, 200));
-	//gview.clear();
-	gview<<CGAL::VIOLET<<model;
+	if(0){
+		std::getchar();
+		CGAL::Geomview_stream gview(CGAL::Bbox_3(bbox[0][0],bbox[0][1],bbox[0][2],bbox[1][0],bbox[1][1],bbox[1][2]));
+		gview.set_bg_color(CGAL::Color(0, 200, 200));
+		//gview.clear();
+		gview<<CGAL::VIOLET<<model;
+		//Pause at end
+		std::getchar();
+	}
 
-//Pause at end
-	std::getchar();
+//Output from Openscad
+	char cmd[BUFSIZE];
+	snprintf(cmd,BUFSIZE,"openscad main.scad -o %s",abspathoutput);
+	std::system(cmd);
+
+
 	return 0;
-
 }
