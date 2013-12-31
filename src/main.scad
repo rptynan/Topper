@@ -79,6 +79,6 @@ module Infill(){
 
 Section_View(section_view) 
 union(){
-	color("Turquoise",0.5) Infill();
-	color("Orange",0.5) Shell() Model();
+	color("DarkTurquoise",0.5) Infill();
+	color("Navy",0.5) Shell() Model();
 };

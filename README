@@ -1,5 +1,36 @@
-To Do:
+Topper - Infills for your 3D models
+===========================
 
-Fix the sphere pack so that the spheres definitely intersect when $fn is low (step variable)
 
-Move the variables at top of main.scad to variables.scad
+Getting Started
+-------------------
+Clone the repo, make a build and compile, like so:
+
+    mkdir build && cd build
+    cmake..
+    >make;
+
+After that you can run it like this:
+
+    ./topper [input_model] [infill_number] [output_model]
+
+Input models **must**  be in **.off** format, while output files can be in any format openscad supports (which are .stl / .off / .csg).
+
+There are currently five infills, numbered below.
+
+| Number | Infill Type                                             |
+| ---------- | ------------------------------------------ ---- |
+| 0           |  Test                                                    |
+| 1           |  Sphere Packing                                  |
+| 2           |  Truncated Octohedron Tessellation   |
+| 3           |  Rhombic Dodecahedron Tessellation |
+| 4           |  Dynamic Struct to Vertex Support       |
+
+Which look like this
+
+
+
+
+
+
+
