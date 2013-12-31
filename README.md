@@ -20,9 +20,12 @@ There are currently four infills, numbered below.
 
 1. Sphere Packing
 ![alt-text](https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/1.png "1")
+
 2. Truncated Octohedron Tessellation
 ![alt-text](https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/2.png "2")
+
 3. Rhombic Dodecahedron Tessellation
 ![alt-text](https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/3.png "3")
+
 4. Dynamic Struct to Vertex Support
 ![alt-text](https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/4.png "4")
