@@ -4,7 +4,7 @@ Topper - Infills for your 3D models
 
 Getting Started
 -------------------
-Clone the repo, make a build and compile, like so:
+Clone the repo, make a build and compile, like so: 
 
     mkdir build && cd build
     cmake..
@@ -18,14 +18,18 @@ Input models **must**  be in **.off** format, while output files can be in any f
 
 There are currently four infills, numbered below.
 
-1. Sphere Packing
-![alt-text](https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/1.png "1")
+| Number | Infill                            | Picture         |
+|:------:| --------------------------------- | --------------- |
+| 1      | Sphere Packing                    | ![alt-text][I1] |
+| 2      | Truncated Octohedron Tessellation | ![alt-text][I2] |
+| 3      | Rhombic Dodecahedron Tessellation | ![alt-text][I3] |
+| 4      | Dynamic Struct to Vertex Support  | ![alt-text][I4] |
 
-2. Truncated Octohedron Tessellation
-![alt-text](https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/2.png "2")
 
-3. Rhombic Dodecahedron Tessellation
-![alt-text](https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/3.png "3")
 
-4. Dynamic Struct to Vertex Support
-![alt-text](https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/4.png "4")
+----------------------------------------------------------------
+
+[I1]:https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/1.png "1"
+[I2]:https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/2.png "2"
+[I3]:https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/3.png "3"
+[I4]:https://dl.dropboxusercontent.com/u/9795990/hosted_images/Github-Topper-Readme/4.png "4"
