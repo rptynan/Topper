@@ -8,7 +8,7 @@ Clone the repo, make a build and compile, like so:
 
     mkdir build && cd build
     cmake..
-    >make;
+    make
 
 After that you can run it like this:
 
