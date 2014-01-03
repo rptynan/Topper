@@ -1,6 +1,6 @@
 module Infill_octtess(side){
 
-	a=side/2;
+	a=(3*side)/2;
 	b=1/sqrt(2)*(2*a);
 	step=(2/3)*b*2;
 
@@ -47,3 +47,7 @@ module Infill_octtess(side){
 
 	disy() disx() disz();
 }
+//Half side length of pyramid or octohedron = a
+//Side of octohedron / 3  = side = side of truncated octohedron
+//Half height of octohedron or height of pyramid = b
+//Square face to opposite Square face = step 

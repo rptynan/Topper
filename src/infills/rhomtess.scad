@@ -1,8 +1,8 @@
 include <../variables.scad>;
 module Infill_rhomtess(height){
 
-	a = sqrt(2)*height;
-	b = height;
+	a = sqrt(2)*(height/2);
+	b = height/2;
 
 	module Rhombus(){
 		translate([0,0,-a/2]) linear_extrude(a)

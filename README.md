@@ -10,13 +10,15 @@ Clone the repo, make a build and compile, like so:
     cmake..
     make
 
+Note: **CGAL** and **OpenSCAD** are required.
+
 After that you can run it like this:
 
     ./topper [input_model] [infill_number] [output_model]
 
 Input models **must**  be in **.off** format, while output files can be in any format openscad supports (which are .stl / .off / .csg).
 
-There are currently four infills, numbered below.
+There are currently four infills, numbered below. There are variables in `configuration.scad` which you can change to alter them.
 
 | Number | Infill                            | Picture         |
 |:------:| --------------------------------- | --------------- |
