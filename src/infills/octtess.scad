@@ -15,11 +15,13 @@ module Infill_octtess(side){
 
 
 	module Truncated_Octohedron(){
-		resize([1,1,1]*(step-infill_width/2)) intersection(){
+		resize([(3*side)-infill_width*1.1,(3*side)-infill_width*1.1,step-infill_width]) 
+		intersection(){
 			Octohedron();
 			rotate([0,0,45]) cube(step,center=true);
 		}
 	}
+	
 
 	module disz(){
 		for(z = [bbox[0][2]:step:bbox[1][2]+step]){
@@ -28,24 +30,25 @@ module Infill_octtess(side){
 	}
 
 	module disx(){
-		for(x = [bbox[0][0]:step+b/2:bbox[1][0]+step]){
+		for(x = [bbox[0][0]:4*side:bbox[1][0]+step]){
 			translate([x,0,0]) children(0);
 		}
-		for(x = [bbox[0][0]+(step+b/2)/2:step+b/2:bbox[1][0]+step]){
-			translate([x,0,(2*b)/3]) children(0);
+		for(x = [bbox[0][0]+2*side:4*side:bbox[1][0]+2*side]){
+			translate([x,0,-step/2]) children(0);
 		}
 	}
 	
 	module disy(){
-		for(y = [bbox[0][2]:step+b/2:bbox[1][2]+step]){
+		for(y = [bbox[0][2]:4*side:bbox[1][2]+2*side]){
 			translate([0,y,0]) children(0);
 		}
-		for(y = [bbox[0][2]+(step+b/2)/2:step+b/2:bbox[1][2]+step]){
-			translate([0,y,(2*b)/3]) children(0);
+		for(y = [bbox[0][2]+2*side:4*side:bbox[1][2]+2*side]){
+			translate([0,y,step/2]) children(0);
 		}
 	}
 
 	disy() disx() disz();
+	
 }
 //Half side length of pyramid or octohedron = a
 //Side of octohedron / 3  = side = side of truncated octohedron
