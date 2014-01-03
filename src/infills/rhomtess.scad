@@ -1,4 +1,3 @@
-include <../variables.scad>;
 module Infill_rhomtess(height){
 
 	a = sqrt(2)*(height/2);

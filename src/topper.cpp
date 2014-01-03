@@ -37,9 +37,9 @@ int main(int argc, char *argv[]){
 	abspathexec[strlen(abspathexec)-6]='\0';
 	std::cout<<"Absolute path to executable's directory: "<<abspathexec<<std::endl;
 	//Model's path
-	if(argv[3][0]!='/' && argv[3][0]!='\\') strcpy(abspathmodel,abspathuser);
+	if(argv[1][0]!='/' && argv[1][0]!='\\') strcpy(abspathmodel,abspathuser);
 	strcat(abspathmodel,argv[1]);
-	std::cout<<"Absolute path to model: "<<abspathmodel<<std::endl;
+	std::cout<<"Absolute path to input model: "<<abspathmodel<<std::endl;
 	//Infill
 	int infillmode = atoi(argv[2]);
 	//Output path
@@ -105,7 +105,7 @@ int main(int argc, char *argv[]){
 
 //Output from Openscad
 	char cmd[BUFSIZE];
-	snprintf(cmd,BUFSIZE,"openscad main.scad -o %s",abspathoutput);
+	snprintf(cmd,BUFSIZE,"openscad %smain.scad -o %s",abspathexec,abspathoutput);
 	std::system(cmd);
 
 
