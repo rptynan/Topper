@@ -15,7 +15,8 @@ module Infill_octtess(side){
 
 
 	module Truncated_Octohedron(){
-		resize([(3*side)-infill_width*1.1,(3*side)-infill_width*1.1,step-infill_width]) 
+		new = (3*side)*((step-infill_width)/step);
+		resize([new,new,step-infill_width]) 
 		intersection(){
 			Octohedron();
 			rotate([0,0,45]) cube(step,center=true);
