@@ -26,16 +26,26 @@ module Infill_rhomtess(height){
 		}
 	}
 
-	for(z = [bbox[0][2]:2*b:bbox[1][2]+b],
-		y = [bbox[0][1]:a:bbox[1][1]+(a/2)],
-		x = [bbox[0][0]:a:bbox[1][0]+(a/2)]){
-			translate([x,y,z]) Rhombic_Dodecahedron();
+	module disz(){
+		for(z = [bbox[0][2]:2*b:bbox[1][2]+b]){
+			translate([0,0,z]) Rhombic_Dodecahedron();
+			translate([a/2,a/2,z+b]) Rhombic_Dodecahedron();
+		}
 	}
-	for(z = [bbox[0][2]+b:2*b:bbox[1][2]+2*b],
-		y = [bbox[0][1]+(a/2):a:bbox[1][1]+a/2],
-		x = [bbox[0][0]+(a/2):a:bbox[1][0]+a/2]){
-			translate([x,y,z]) Rhombic_Dodecahedron();
+			
+	module disy(){
+		for( y = [bbox[0][1]-a/2:a:bbox[1][1]+(a/2)]){
+			translate([0,y,0]) children(0);
+		}
 	}
+	
+	module disx(){
+		for( x = [bbox[0][0]-a/2:a:bbox[1][0]+(a/2)]){
+			translate([x,0,0]) children(0);
+		}
+	}
+
+	disx() disy() disz();
 
 }
 //Flat side to opposite side = a
