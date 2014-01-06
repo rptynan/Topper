@@ -40,10 +40,10 @@ module Infill_octtess(side){
 	}
 	
 	module disy(){
-		for(y = [bbox[0][2]:4*side:bbox[1][2]+2*side]){
+		for(y = [bbox[0][2]:4*side:bbox[1][1]+2*side]){
 			translate([0,y,0]) children(0);
 		}
-		for(y = [bbox[0][2]+2*side:4*side:bbox[1][2]+2*side]){
+		for(y = [bbox[0][2]+2*side:4*side:bbox[1][1]+2*side]){
 			translate([0,y,step/2]) children(0);
 		}
 	}
